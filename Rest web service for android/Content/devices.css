@@ -1,0 +1,41 @@
+﻿#devices {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    float: left;
+}
+
+    #devices li {
+        margin: 3px 3px 3px 0;
+        padding: 1px;
+        float: left;
+        width: 300px;
+        text-align: center;
+        background-image: none;
+        background-color: #F5F5F5;
+    }
+
+        #devices li h1 {
+            padding: 0;
+            margin: 0;
+            background-image: none;
+            background-color: #1eb426;
+            color: White;
+            font-family: Trebuchet MS, Tahoma, Verdana, Arial, sans-serif;
+        }
+
+
+
+textarea {    
+    width: 280px;
+}
+
+.sendMessage {
+    padding: 3px;
+    text-decoration: none;
+}
+
+.content-wrapper {
+    margin: 0 auto;
+    max-width: 100%;
+}

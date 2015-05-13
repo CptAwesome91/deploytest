@@ -1,0 +1,81 @@
+﻿@{
+    ViewBag.Title = "Device manager";
+}
+
+@Styles.Render("~/Content/devices.css")
+
+<header>
+    <div class="content-wrapper">
+        <div class="float-left">
+            <p class="site-title">
+                <a href="/">Google Cloud Messaging for Android client with ASP.NET Web Api Server</a>
+            </p>
+        </div>
+    </div>
+</header>
+<div id="body">
+
+    <section class="featured">
+        <div class="content-wrapper">
+            <div>
+                You can test server by <a href="http://hintdesk.com/Web/Android/Google Cloud Messaging.apk">installing APK</a> to your phone and try to send a message to your phone
+            </div>
+            <div id="UploadNotification" style="display: none">
+                <img alt="" id="upload-animation" src="~/Images/loading.gif" />
+                <span id="percentControl">Message sending</span>
+            </div>
+            <div id="NotificationField">
+            </div>
+        </div>
+    </section>
+    <section class="clear-fix">
+        @if (Model != null)
+        {
+
+            <ul id="devices">
+                @foreach (Rest_web_service_for_android.Device device in Model)
+                {
+                    using (Html.BeginForm("SendMessage", "DeviceManager", FormMethod.Post, new { id = "ajaxUploadForm" }))
+                    {
+                    <li class="ui-widget-content ui-corner-all">
+                        <h1 class="ui-widget-header">@device.Name</h1>
+                        <div>
+                            <a href="mailto:@device.Email">@device.Email</a>
+                        </div>
+                        <div>
+                            <textarea rows="3" placeholder="Type message here" name="Message"></textarea>
+                            <input type="hidden" name="DeviceId" value="@device.Id" />
+                            <input type="submit" class="sendMessage" value="Send" />
+                        </div>
+                    </li>
+                    }
+                }
+            </ul>
+
+        }
+        <br />
+        <br />
+    </section>
+</div>
+@Scripts.Render("~/bundles/jquery")
+
+<script type="text/javascript">
+    $("#ajaxUploadForm").live("submit", function (e) {
+
+        var ajaxSubmitOptions = {
+            target: $("#NotificationField"),
+            beforeSubmit: function (formData, jqForm, options) {
+                $("#UploadNotification").show();
+            },
+            success: function (responseText, statusText, xhr, $form) {
+                $("#percentControl").html("Message sent");
+                $("#upload-animation").hide();
+            }
+        };
+
+        $(this).ajaxSubmit(ajaxSubmitOptions);
+
+        return false;
+
+    });
+</script>
